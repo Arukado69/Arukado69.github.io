@@ -3,238 +3,406 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Portafolio | Omar Albis</title>
-  <meta name="description" content="Portafolio Full-Stack estilo Metal Gear. Proyectos, logros y contacto."/>
+  <title>Portafolio | Irving Omar Albis</title>
+  <meta name="description" content="Portafolio Full-Stack Java. Proyectos, habilidades y contacto."/>
+  <!-- Google Fonts (opcional) -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="assets/css/style.css?v=skills2"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
+  <!-- Devicon (iconos de tecnologías) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-
+  <!-- Bootstrap 5.3.8 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="assets/css/style.css?v=hexdance-1">
 </head>
-<body>
+<body class="no-js">
 
-  <!-- Overlays -->
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
-  <div class="honeycomb" aria-hidden="true"></div>
-
-  <!-- Cursor personalizado -->
-  <div class="reticle">
-    <div class="reticle-ring"></div>
-    <div class="reticle-dot"></div>
+  <!-- Fondo base negro + SVG animado -->
+  <div class="bg-base" aria-hidden="true"></div>
+  <div class="hexdance-bg" aria-hidden="true">
+    <object type="image/svg+xml" data="assets/img/hex_dance.svg"></object>
   </div>
 
-  <!-- Barra “CODEC” -->
-  <header class="codec-bar">
-    <div class="codec-left">
-      <span class="codec-led"></span>
-      <span class="codec-label">Omar </span>
-      <span class="codec-channel">Ingeniero en Sistemas Computacionales</span>
+  <!-- Navbar Bootstrap -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#top">Irving Omar Albis</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
+              aria-controls="nav" aria-expanded="false" aria-label="Menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="nav" class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">Sobre mí</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Habilidades</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tech">Tecnologías</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Proyectos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#training">Formación</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+        </ul>
+      </div>
     </div>
-    <nav class="nav">
-      <a href="#about">SOBRE MÍ</a>
-      <a href="#projects">PROYECTOS</a>
-      <a href="#achievements">LOGROS</a>
-      <a href="#contact">CONTACTO</a>
-    </nav>
-  </header>
+  </nav>
 
   <!-- HERO -->
-  <section class="section hero" id="top">
-    <h1 class="glitch" data-text="OMAR ALBIS">OMAR ALBIS</h1>
-    <p class="subtitle">Desarrollador Full-Stack (Java) — UX-minded — Scrum</p>
-    <p class="hint"> Conoceme mejor ;)</p>
-  </section>
+  <header id="top" class="py-5 text-center hero-section">
+    <div class="container py-5">
+      <h1 class="display-5 fw-800 text-accent mb-2">IRVING OMAR ALBIS</h1>
+      <p class="lead mb-4">Full-Stack (Java / Spring Boot) · Enfoque UX · Scrum Master</p>
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a class="btn btn-accent btn-lg" href="assets/cv/CV_IrvingOmarAlbis.pdf" download>
+          <i class="bi bi-download me-1"></i> Descargar CV
+        </a>
+        <a class="btn btn-outline-accent btn-lg" href="https://www.linkedin.com/in/irvingomar-tech/" target="_blank" rel="noopener">
+          <i class="bi bi-linkedin me-1"></i> LinkedIn
+        </a>
+        <a class="btn btn-outline-accent btn-lg" href="https://github.com/Arukado69" target="_blank" rel="noopener">
+          <i class="bi bi-github me-1"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </header>
 
   <!-- SOBRE MÍ -->
-<section class="section panel" id="about">
-  <h2 class="section-title">/ SOBRE MÍ</h2>
-
-  <p>
-    Soy desarrollador <strong>Full-Stack</strong> en formación, especializado en el ecosistema
-    <strong>Java</strong>, con experiencia práctica en el desarrollo de aplicaciones web
-    utilizando <strong>HTML5</strong>, <strong>CSS3</strong>, <strong>JavaScript</strong> y
-    <strong>Bootstrap 5</strong>.
-  </p>
-
-  <p>
-    Actualmente curso el programa <strong>Generation México – Java Full Stack Developer</strong>,
-    donde desempeño el rol de <strong>Scrum Master</strong> en un proyecto integrador enfocado en
-    soluciones de <strong>e-commerce</strong> bajo metodologías ágiles.
-  </p>
-
-  <p>
-    Mi enfoque combina <strong>lógica</strong>, <strong>diseño</strong> y <strong>experiencia de
-    usuario</strong>, buscando desarrollar entornos digitales eficientes, accesibles y visualmente
-    coherentes.
-  </p>
-
-  <p>
-    He colaborado en equipos multidisciplinarios aplicando control de versiones con
-    <strong>Git / GitHub</strong>, gestión de tareas mediante <strong>Scrum</strong> y
-    buenas prácticas de documentación y revisión de código.
-  </p>
-
-  <p>
-    Fuera del código, me apasiona la <strong>música</strong>, la creación visual y la mejora
-    constante de mis procesos, tanto técnicos como personales. Creo en la disciplina, la
-    adaptabilidad y en convertir cada proyecto en una oportunidad real de crecimiento.
-  </p>
-</section>
-
-<!-- FIELD SKILLS LOG -->
-<section class="section panel" id="skills">
-  <h2 class="section-title">/ FIELD SKILLS LOG</h2>
-  <p class="section-intro">
-    Registro operativo de fortalezas actuales. Parámetros verificados durante entrenamiento y despliegue en entorno Full-Stack Java.
-  </p>
-
-  <article class="skill-log">
-    <h3>F-SK01 // COMUNICACION</h3>
-    <p>Coordina equipos y mantiene claridad en entornos de presión. Transmite objetivos con precisión y empatía.</p>
-    <span class="status active">STATUS: ONLINE</span>
-  </article>
-
-  <article class="skill-log">
-    <h3>F-SK02 // LIDER</h3>
-    <p>Ejecuta funciones de <strong>Scrum Master</strong>. Motiva, prioriza tareas y sostiene el ritmo de desarrollo ágil.</p>
-    <span class="status boosted">STATUS: BOOSTED</span>
-  </article>
-
-  <article class="skill-log">
-    <h3>F-SK03 // ADAPTABILIDAD</h3>
-    <p>Integra nuevas tecnologías y metodologías con rapidez. Aprende bajo presión sin perder eficiencia.</p>
-    <span class="status stable">STATUS: STABLE</span>
-  </article>
-
-  <article class="skill-log">
-    <h3>F-SK04 // CREATIVIDAD</h3>
-    <p>Desarrolla soluciones visuales y lógicas con enfoque UX. Inspira mejoras continuas en la experiencia digital.</p>
-    <span class="status active">STATUS: ONLINE</span>
-  </article>
-
-  <article class="skill-log">
-    <h3>F-SK05 // RESILIENCIA</h3>
-    <p>Mantiene consistencia ante imprevistos. Equilibra carga emocional y técnica durante el avance de misión.</p>
-    <span class="status boosted">STATUS: BOOSTED</span>
-  </article>
-</section>
-
-<!-- TECH GRID -->
-<section class="section panel" id="tech">
-  <h2 class="section-title">/ TECH GRID</h2>
-  <p class="section-intro">
-    Registro de frameworks, entornos y herramientas de despliegue utilizadas durante operaciones Full-Stack.
-  </p>
-
-  <div class="tech-grid">
-    <!-- FILA 1 -->
-    <div class="tech-item"><i class="devicon-java-plain"></i><span>Java</span></div>
-    <div class="tech-item"><i class="devicon-spring-plain"></i><span>Spring Boot</span></div>
-    <div class="tech-item"><i class="devicon-html5-plain"></i><span>HTML5</span></div>
-    <div class="tech-item"><i class="devicon-css3-plain"></i><span>CSS3</span></div>
-    <div class="tech-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span></div>
-
-    <!-- FILA 2 -->
-    <div class="tech-item"><i class="devicon-bootstrap-plain"></i><span>Bootstrap</span></div>
-    <div class="tech-item"><i class="devicon-mysql-plain"></i><span>MySQL</span></div>
-    <div class="tech-item"><i class="devicon-mongodb-plain"></i><span>MongoDB</span></div>
-    <div class="tech-item"><i class="devicon-git-plain"></i><span>Git</span></div>
-    <div class="tech-item"><i class="devicon-github-original"></i><span>GitHub</span></div>
-
-    <!-- FILA 3 -->
-    <div class="tech-item"><i class="devicon-maven-plain"></i><span>Maven</span></div>
-    <div class="tech-item"><i class="devicon-junit-plain"></i><span>JUnit</span></div>
-    <div class="tech-item"><i class="devicon-vscode-plain"></i><span>VS Code</span></div>
-    <div class="tech-item"><i class="devicon-intellij-plain"></i><span>IntelliJ</span></div>
-    <div class="tech-item"><i class="devicon-windows8-original"></i><span>Windows</span></div>
-  </div>
-</section>
-
-
-  <!-- PROYECTOS (2) -->
-  <section class="section panel" id="projects">
-    <h2 class="section-title">/ PROYECTOS</h2>
-
-    <article class="project-card" data-alert>
-      <div class="alert-badge" aria-hidden="true">!</div>
-      <img src="assets/img/LOGO-WOOF-BARF.png" alt="Woof & Barf - eCommerce nutrición canina"/>
-      <div class="project-body">
-        <h3>Woof &amp; Barf — E-Commerce</h3>
-        <div class="tags">
-          <span>Java</span><span>HTML</span><span>CSS</span><span>Bootstrap 5</span><span>Git</span>
+  <section id="about" class="section reveal">
+    <div class="container">
+      <h2 class="section-title">/ SOBRE MÍ</h2>
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <p class="mb-3">
+            Me apasiona la tecnología porque resuelve problemas reales. Hoy me desempeño como
+            <strong>desarrollador Full-Stack con Java y Spring Boot</strong> y <strong>Scrum Master</strong> en un
+            proyecto de e-commerce. Disfruto conectar backend sólido con interfaces claras y accesibles.
+          </p>
+          <p class="mb-3">
+            En lo humano, destaco por <strong>comunicación</strong>, <strong>liderazgo orientado al servicio</strong> y
+            <strong>adaptabilidad</strong> bajo presión. Me gusta aprender rápido, iterar con feedback y sostener un ritmo de entrega sano.
+          </p>
+          <p class="mb-0">
+            <em>Quiero mantenerme a la vanguardia y crecer —en equipo o en proyectos personales— creando soluciones e
+            innovaciones donde se valore mi trabajo y pueda seguir aprendiendo.</em>
+          </p>
         </div>
-        <p><strong>Rol:</strong> Scrum Master &amp; Front</p>
-        <p><strong>Reto:</strong> Navegación responsiva, carrito y confirmación según rúbricas.</p>
-        <p><strong>Solución:</strong> Navbar global, vistas modulares y CSS consistente.</p>
-        <p class="links">
-          <a href="https://github.com/Arukado69/Proyecto-Integrador" target="_blank" rel="noopener">Repositorio</a>
-          <a href="#" target="_blank" rel="noopener">Demo</a>
-        </p>
-        <details class="updates">
-          <summary>Actualizaciones</summary>
-          <ul>
-            <li>2025-10: Navbar global + reestructura CSS.</li>
-            <li>2025-10: Página de confirmación de pedido.</li>
-          </ul>
-        </details>
+        <div class="col-lg-5 text-center">
+          <img src="assets/img/mi-foto.jpg" class="img-fluid rounded-3 shadow-lg about-photo"
+               alt="Foto profesional de Irving Omar Albis" loading="lazy">
+        </div>
       </div>
-    </article>
-
-    <article class="project-card" data-alert>
-      <div class="alert-badge" aria-hidden="true">!</div>
-      <img src="assets/img/Chronologjpg.png" alt="ChronoLog - Blog temático"/>
-      <div class="project-body">
-        <h3>ChronoLog — Blog</h3>
-        <div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-        <p><strong>Rol:</strong> Front &amp; UI</p>
-        <p><strong>Reto:</strong> Estilo retro, legible y rápido.</p>
-        <p><strong>Solución:</strong> Semántica, lazy images y micro-interacciones.</p>
-        <p class="links">
-          <a href="#" target="_blank" rel="noopener">Repositorio</a>
-          <a href="#" target="_blank" rel="noopener">Demo</a>
-        </p>
-        <details class="updates">
-          <summary>Actualizaciones</summary>
-          <ul><li>2025-10: Tarjetas y animaciones sutiles.</li></ul>
-        </details>
-      </div>
-    </article>
+    </div>
   </section>
 
-  <!-- LOGROS -->
-  <section class="section panel" id="achievements">
-    <h2 class="section-title">/ LOGROS</h2>
-    <ul class="codex-list">
-      <li>[2025] Scrum Master del Proyecto Integrador</li>
-      <li>[2025] Sitios responsivos con Bootstrap 5</li>
-      <li>[2025] Flujo Git con ramas y PRs protegidos</li>
-    </ul>
+  <!-- HABILIDADES -->
+  <section id="skills" class="section reveal">
+    <div class="container">
+      <h2 class="section-title">/ HABILIDADES</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 card-neo">
+            <div class="card-body">
+              <h3 class="h5 mb-2">SK01 // Comunicación</h3>
+              <p class="mb-0">Clarifico objetivos, recojo necesidades y cierro acuerdos. Practico feedback accionable y documentación breve que desbloquea al equipo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 card-neo">
+            <div class="card-body">
+              <h3 class="h5 mb-2">SK02 // Liderazgo</h3>
+              <p class="mb-0">Facilitación con <strong>Scrum</strong>: prioridades visibles, cadencia de entrega, coordinación entre roles y reducción de bloqueos sin perder calidad.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 card-neo">
+            <div class="card-body">
+              <h3 class="h5 mb-2">SK03 // Adaptabilidad</h3>
+              <p class="mb-0">Aprendizaje rápido de herramientas y entornos. Mantengo la eficiencia mientras incorporo nuevas prácticas y asumo retos fuera de la zona cómoda.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECNOLOGÍAS -->
+  <section id="tech" class="section reveal">
+    <div class="container">
+      <h2 class="section-title">/ TECNOLOGÍAS</h2>
+      <p class="opacity-75 mb-4">Stack y nivel de familiaridad estimado.</p>
+
+      <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-3">
+        <!-- Spring Boot -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="72" title="≈72%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-spring-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="Spring Boot">Spring Boot</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:72%"></div></div>
+          </div>
+        </div>
+        <!-- Java -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="80" title="≈80%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-java-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="Java">Java</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:80%"></div></div>
+          </div>
+        </div>
+        <!-- HTML5 -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="85" title="≈85%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-html5-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="HTML5">HTML5</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:85%"></div></div>
+          </div>
+        </div>
+        <!-- CSS3 -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="75" title="≈75%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-css3-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="CSS3">CSS3</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:75%"></div></div>
+          </div>
+        </div>
+        <!-- JavaScript -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="70" title="≈70%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-javascript-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="JavaScript">JavaScript</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:70%"></div></div>
+          </div>
+        </div>
+        <!-- Bootstrap -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="80" title="≈80%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-bootstrap-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="Bootstrap">Bootstrap</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:80%"></div></div>
+          </div>
+        </div>
+        <!-- MySQL -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="65" title="≈65%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-mysql-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="MySQL">MySQL</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:65%"></div></div>
+          </div>
+        </div>
+        <!-- Git -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="75" title="≈75%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-git-plain colored dev-icon-lg"></i>
+              <span class="tech-label" data-text="Git">Git</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:75%"></div></div>
+          </div>
+        </div>
+        <!-- GitHub -->
+        <div class="col">
+          <div class="card tech-card h-100 p-3" data-level="70" title="≈70%">
+            <div class="d-flex align-items-center gap-2">
+              <i class="devicon-github-original dev-icon-lg"></i>
+              <span class="tech-label" data-text="GitHub">GitHub</span>
+            </div>
+            <div class="progress mt-3"><div class="progress-bar" style="width:70%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <small class="d-block mt-2 opacity-50">* Ajusta los porcentajes según te sientas cómodo.</small>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="projects" class="section reveal">
+    <div class="container">
+      <h2 class="section-title">/ PROYECTOS</h2>
+
+      <!-- Woof & Barf -->
+      <article class="card project-card mb-4">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="img-fluid project-cover" src="assets/img/LOGO-WOOF-BARF.png" alt="Woof & Barf - eCommerce" loading="lazy">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="h4 mb-2">Woof &amp; Barf — E-Commerce</h3>
+              <div class="tags mb-2">
+                <span>Java</span><span>Spring Boot</span><span>HTML</span><span>CSS</span><span>Bootstrap 5</span><span>Git</span>
+              </div>
+              <p class="mb-2"><strong>Rol:</strong> Scrum Master & Front</p>
+              <p class="mb-2"><strong>Retos:</strong> navegación responsiva consistente, estructura de vistas modulares, preparación para endpoints de carrito/pedido.</p>
+              <p class="mb-3"><strong>Detalles de creación:</strong> navbar Bootstrap, grilla de páginas, tokens de color, componentes reutilizables y estilos propios sobrios para mantener performance.</p>
+              <p class="mb-0 links">
+                <a href="https://github.com/Arukado69/Proyecto-Integrador.git" target="_blank" rel="noopener">Repositorio</a>
+                <span class="ms-2 opacity-50">Demo: próximamente</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ChronoLog -->
+      <article class="card project-card">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="img-fluid project-cover" src="assets/img/Chronologjpg.png" alt="ChronoLog - Blog" loading="lazy">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h3 class="h4 mb-2">ChronoLog — Blog</h3>
+              <div class="tags mb-2"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <p class="mb-2"><strong>Rol:</strong> Front & UI</p>
+              <p class="mb-2"><strong>Retos:</strong> estética retro legible, rendimiento y micro-interacciones.</p>
+              <p class="mb-3"><strong>Detalles de creación:</strong> semántica HTML, imágenes lazy, grilla flexible y efectos sutiles en tarjetas.</p>
+              <p class="mb-0 links">
+                <a href="https://github.com/Arukado69/ChronoLog.git" target="_blank" rel="noopener">Repositorio</a>
+                <a class="ms-2" href="https://arukado69.github.io/ChronoLog/" target="_blank" rel="noopener">Demo</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FORMACIÓN Y CERTIFICACIONES -->
+  <section id="training" class="section reveal">
+    <div class="container">
+      <h2 class="section-title">/ FORMACIÓN Y CERTIFICACIONES</h2>
+      <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-lg-3">
+        <div class="col">
+          <div class="card h-100 card-neo">
+            <div class="ratio ratio-16x9">
+              <img src="assets/certs/generation_java_fullstack.png" class="object-fit-cover rounded-top"
+                   alt="Generation México - Java Full-Stack">
+            </div>
+            <div class="card-body">
+              <h3 class="h6 mb-1">Generation México — Java Full-Stack</h3>
+              <small class="opacity-75">Scrum Master del proyecto integrador</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 card-neo">
+            <div class="ratio ratio-16x9">
+              <img src="assets/certs/bigschool_cert.png" class="object-fit-cover rounded-top" alt="BIG School">
+            </div>
+            <div class="card-body">
+              <h3 class="h6 mb-1">BIG School — Certificación</h3>
+              <small class="opacity-75">Título del curso</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card h-100 card-neo">
+            <div class="ratio ratio-16x9">
+              <img src="assets/certs/coursera_cert.png" class="object-fit-cover rounded-top" alt="Coursera">
+            </div>
+            <div class="card-body">
+              <h3 class="h6 mb-1">Coursera — Certificado</h3>
+              <small class="opacity-75">Título del curso</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <small class="d-block mt-2 opacity-50">* Cambia nombres de archivo/texto por tus certificados reales.</small>
+    </div>
   </section>
 
   <!-- CONTACTO -->
-  <section class="section panel" id="contact">
-    <h2 class="section-title">/ CONTACTO</h2>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <span class="label">EMAIL</span>
-        <a href="mailto:tu.email@dominio.com">omar.dimir69@gmail.com</a>
-      </div>
-      <div class="contact-card">
-        <span class="label">GITHUB</span>
-        <a href="https://github.com/Arukado69" target="_blank" rel="noopener">github.com/Arukado69</a>
-      </div>
-      <div class="contact-card">
-        <span class="label">LINKEDIN</span>
-        <a href="#" target="_blank" rel="noopener">www.linkedin.com/in/irvingomar-tech</a>
+  <section id="contact" class="section reveal">
+    <div class="container">
+      <h2 class="section-title">/ CONTACTO</h2>
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-5">
+          <div class="card h-100 card-neo">
+            <div class="card-body">
+              <p class="mb-3">¿Tienes un proyecto o vacante? Hablemos.</p>
+              <div class="d-grid gap-2 mb-3">
+                <a class="btn btn-outline-accent" href="mailto:omar.dimir69@gmail.com">
+                  <i class="bi bi-envelope me-2"></i> omar.dimir69@gmail.com
+                </a>
+                <a class="btn btn-outline-accent" href="https://github.com/Arukado69" target="_blank" rel="noopener">
+                  <i class="bi bi-github me-2"></i> github.com/Arukado69
+                </a>
+                <a class="btn btn-outline-accent" href="https://www.linkedin.com/in/irvingomar-tech/" target="_blank" rel="noopener">
+                  <i class="bi bi-linkedin me-2"></i> linkedin.com/in/irvingomar-tech
+                </a>
+              </div>
+              <button id="copy-email" class="btn btn-accent w-100">
+                <i class="bi bi-clipboard-check me-2"></i> Copiar correo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="card h-100">
+            <div class="card-body">
+              <form id="contact-form" novalidate>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Tu nombre" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="email" class="form-label">Correo</label>
+                    <input id="email" name="email" type="email" class="form-control" placeholder="tucorreo@dominio.com" required>
+                  </div>
+                  <div class="col-12">
+                    <label for="message" class="form-label">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" class="form-control" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+                  </div>
+                  <div class="col-12 d-grid d-sm-flex gap-2">
+                    <button class="btn btn-accent flex-fill flex-sm-grow-0" type="submit">
+                      <i class="bi bi-send me-1"></i> Contactar
+                    </button>
+                    <button class="btn btn-outline-accent flex-fill flex-sm-grow-0" type="reset">
+                      <i class="bi bi-eraser me-1"></i> Limpiar
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <small class="d-block mt-3 opacity-50">Se abrirá tu cliente de correo con los datos precargados.</small>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <small>© 2025 • Portafolio estilo codec • HTML/CSS/JS</small>
+  <!-- Footer -->
+  <footer class="py-4 text-center text-white-50">
+    <small>© 2025 • Portafolio • HTML/CSS/JS + Bootstrap</small>
   </footer>
 
-  <script src="assets/js/main.js"></script>
+  <!-- Botón volver arriba -->
+  <button id="btn-top" aria-label="Volver arriba" title="Arriba">▲</button>
+
+  <!-- Bootstrap + JS propio -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+          crossorigin="anonymous"></script>
+  <script>document.body.classList.remove('no-js');</script>
+  <script src="assets/js/main.js?v=hexdance-1"></script>
 </body>
 </html>
