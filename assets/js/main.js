@@ -1,107 +1,59 @@
-// === Revelar secciones al hacer scroll ===
+// === Animación suave al entrar en viewport (contenido visible por defecto) ===
 document.addEventListener('DOMContentLoaded', () => {
-  const sections = document.querySelectorAll('.section');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
-  }, {threshold: 0.2});
-  sections.forEach(s=>io.observe(s));
+  const reveal = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animate'); });
+    }, { threshold: 0.18 });
+    reveal.forEach(s => io.observe(s));
+  } else {
+    // Fallback: no hace falta, ya es visible por defecto
+  }
 });
 
-// === Retícula + “pisadas” en hexágonos (versión estable) ===
+// === Botón “volver arriba” ===
 (() => {
-  // contenedor fijo donde se dibujan los hexágonos
-  let layer = document.getElementById('hex-layer');
-  if (!layer) {
-    layer = document.createElement('div');
-    layer.id = 'hex-layer';
-    document.body.appendChild(layer);
-  }
-  Object.assign(layer.style, {
-    position: 'fixed',
-    inset: '0',
-    overflow: 'hidden',
-    pointerEvents: 'none',
-    zIndex: 3
-  });
-
-  const reticle = document.querySelector('.reticle');
-  const ring = document.querySelector('.reticle-ring');
-
-  let pos = {x: innerWidth/2, y: innerHeight/2};
-  let target = {x: pos.x, y: pos.y};
-  let lastPulse = {x: pos.x, y: pos.y};
-
-  const DIST_THRESHOLD = 90;   // distancia mínima entre clusters
-  const HEX_SIZE = 14;         // tamaño base del hexágono
-  const MAX_HEX = 60;          // límite de hexágonos activos
-
-  // movimiento suavizado del cursor
-  function animate(){
-    pos.x += (target.x - pos.x) * 0.18;
-    pos.y += (target.y - pos.y) * 0.18;
-    reticle.style.transform = `translate(${pos.x}px, ${pos.y}px)`;
-    requestAnimationFrame(animate);
-  }
-  animate();
-
-  window.addEventListener('pointermove', (e)=>{
-    target.x = e.clientX;
-    target.y = e.clientY;
-
-    const dx = target.x - lastPulse.x;
-    const dy = target.y - lastPulse.y;
-    const dist = Math.hypot(dx, dy);
-
-    if (dist > DIST_THRESHOLD) {
-      hexBurst(target.x, target.y, HEX_SIZE);
-      lastPulse.x = target.x;
-      lastPulse.y = target.y;
-      flashRing();
-    }
-  });
-
-  function flashRing(){
-    ring.style.boxShadow = '0 0 12px rgba(36,200,255,.85)';
-    setTimeout(()=> ring.style.boxShadow = '0 0 8px rgba(36,200,255,.35)', 120);
-  }
-
-  // crea un grupo de hexágonos (centro + 6 vecinos)
-  function hexBurst(x, y, a){
-    const h = Math.sqrt(3) * a;
-    const offsets = [
-      {dx:  0,      dy:  0},
-      {dx:  1.5*a,  dy:  0},
-      {dx: -1.5*a,  dy:  0},
-      {dx:  0.75*a, dy:  0.5*h},
-      {dx:  0.75*a, dy: -0.5*h},
-      {dx: -0.75*a, dy:  0.5*h},
-      {dx: -0.75*a, dy: -0.5*h},
-    ];
-    offsets.forEach((o,i)=> setTimeout(()=> makeHex(x+o.dx, y+o.dy, a), i*25));
-  }
-
-  function makeHex(x, y, a){
-    const el = document.createElement('div');
-    el.className = 'hex-pulse';
-    el.style.left = x + 'px';
-    el.style.top  = y + 'px';
-    el.style.width  = (a*2) + 'px';
-    el.style.height = (a*1.78) + 'px';
-
-    // limitar cantidad máxima
-    if (layer.children.length > MAX_HEX) layer.removeChild(layer.firstChild);
-
-    layer.appendChild(el);
-    el.addEventListener('animationend', ()=> el.remove());
-    setTimeout(()=> el.remove(), 1000);
-  }
-
-  window.addEventListener('blur',  ()=> reticle.style.opacity = 0);
-  window.addEventListener('focus', ()=> reticle.style.opacity = 1);
+  const btn = document.getElementById('btn-top');
+  if (!btn) return;
+  const TOGGLE_AT = 300;
+  const onScroll = () => {
+    if (window.scrollY > TOGGLE_AT) btn.classList.add('show');
+    else btn.classList.remove('show');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 
-// === efecto “ALERT” cosmético ===
-document.querySelectorAll('[data-alert]').forEach(card=>{
-  card.addEventListener('mouseenter', ()=> card.classList.add('detected'));
-  card.addEventListener('mouseleave', ()=> card.classList.remove('detected'));
-});
+// === Formulario (mailto) ===
+(() => {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const name = (document.getElementById('name').value || '').trim();
+    const email = (document.getElementById('email').value || '').trim();
+    const msg = (document.getElementById('message').value || '').trim();
+    if(!name || !email || !msg){ return; }
+
+    const to = 'omar.dimir69@gmail.com';
+    const subject = encodeURIComponent(`Contacto desde el portafolio: ${name}`);
+    const body = encodeURIComponent(
+      `Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${msg}\n\n-- Enviado desde el portafolio`
+    );
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+  });
+})();
+
+// === Copiar correo al portapapeles ===
+(() => {
+  const btn = document.getElementById('copy-email');
+  if(!btn) return;
+  btn.addEventListener('click', async () => {
+    try{
+      await navigator.clipboard.writeText('omar.dimir69@gmail.com');
+      btn.innerHTML = '<i class="bi bi-clipboard-check-fill me-2"></i> ¡Copiado!';
+      setTimeout(()=> btn.innerHTML = '<i class="bi bi-clipboard-check me-2"></i> Copiar correo', 1500);
+    }catch(_){ /* noop */ }
+  });
+})();
