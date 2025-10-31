@@ -5,31 +5,129 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Portafolio | Irving Omar Albis</title>
   <meta name="description" content="Portafolio Full-Stack Java. Proyectos, habilidades y contacto."/>
-  <!-- Google Fonts (opcional) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"/>
-  <!-- Devicon (iconos de tecnologías) -->
+  <!-- Devicon -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <!-- Bootstrap 5.3.8 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- Estilos propios -->
-  <link rel="stylesheet" href="assets/css/style.css?v=hexdance-1">
+  <!-- TU CSS (ojo a la ruta) -->
+  <link rel="stylesheet" href="assets/style.css?v=hexdance-2">
 </head>
 <body class="no-js">
 
-  <!-- Fondo base negro + SVG animado -->
+  <!-- Fondo negro + SVG animado -->
   <div class="bg-base" aria-hidden="true"></div>
   <div class="hexdance-bg" aria-hidden="true">
-    <object type="image/svg+xml" data="assets/img/hex_dance.svg"></object>
-  </div>
+  <!-- HexDance SVG inline -->
+  <svg id="hexdance" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" onload="init();" shape-rendering="crispEdges" pointer-events="bounding-box">
+    <path /> <path /> <path /> <path /> <path />
+    <path /> <path /> <path /> <path /> <path />
+    <path /> <path /> <path /> <path /> <path />
+    <style>
+      path { fill: none; }
+      path:nth-of-type(1) { stroke: #000000; }
+      path:nth-of-type(2) { stroke: #20342F; }
+      path:nth-of-type(3) { stroke: #304D45; }
+      path:nth-of-type(4) { stroke: #3C6156; }
+      path:nth-of-type(5) { stroke: #467165; }
+      path:nth-of-type(6) { stroke: #4F8072; }
+      path:nth-of-type(7) { stroke: #588E7E; }
+      path:nth-of-type(8) { stroke: #609B8A; }
+      path:nth-of-type(9) { stroke: #67A694; }
+      path:nth-of-type(10) { stroke: #6EB29E; }
+      path:nth-of-type(11) { stroke: #75BCA8; }
+      path:nth-of-type(12) { stroke: #7BC7B1; }
+      path:nth-of-type(13) { stroke: #81D0BA; }
+      path:nth-of-type(14) { stroke: #87DAC2; }
+      path:nth-of-type(15) { stroke: #8DE3CA; }
+    </style>
+    <script>
+       /*<![CDATA[*/
+  let Tau = 2 * Math.PI;
+  let SegmentCount = 35;
+  let SegmentLength = 10;
 
-  <!-- Navbar Bootstrap -->
+  const FOLLOW_MOUSE = false;          // ← ponlo en true si algún día quieres que siga el mouse
+  let cursor = [window.innerWidth/2, window.innerHeight/2];
+  let paths, t = 0;
+
+  function init() {
+    const svg = document.getElementById('hexdance');
+    function setVB(){ svg.setAttribute('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight}`); }
+    setVB();
+    window.addEventListener('resize', setVB);
+
+    paths = document.getElementsByTagName('path');
+    window.setInterval(update, 50);
+
+    if (FOLLOW_MOUSE) {
+      window.addEventListener("mousemove", e => { cursor = [e.clientX, e.clientY]; });
+      window.addEventListener("mouseleave", () => { cursor = [window.innerWidth/2, window.innerHeight/2]; });
+    }
+  }
+
+  function update() {
+    // Efecto "cola"
+    for (let i = 0; i < paths.length - 1; i++) {
+      paths[i].setAttribute('d', paths[i + 1].getAttribute('d'));
+    }
+
+    // Si no seguimos mouse, movemos un cursor fantasma con tiempo
+    if (!FOLLOW_MOUSE) {
+      t += 0.025;
+      const cx = window.innerWidth  * 0.5 + Math.cos(t)   * window.innerWidth  * 0.25;
+      const cy = window.innerHeight * 0.5 + Math.sin(t*.8)* window.innerHeight * 0.20;
+      cursor = [cx, cy];
+    }
+
+    let path = '';
+    if (cursor) {
+      let origin = getNearestHex(cursor);
+      let x = origin[0], y = origin[1];
+      path = 'm ' + x + ' ' + y;
+      for (let i = 0; i < SegmentCount; i++) {
+        let dir = Math.floor(Math.random() * 3) * Tau / 3 + (i % 2 == 0 ? Tau / 6 : 0);
+        let dx = Math.sin(dir) * SegmentLength;
+        let dy = Math.cos(dir) * SegmentLength;
+        x += dx; y += dy;
+        path += ' l ' + dx + ' ' + dy;
+      }
+    }
+    paths[paths.length - 1].setAttribute('d', path);
+  }
+
+  function getNearestHex(p) {
+    let x = p[0], y = p[1];
+    let q = (Math.sqrt(3) / 3 * x - 1 / 3 * y) / SegmentLength;
+    let r = (2 / 3 * y) / SegmentLength;
+
+    let qRound = Math.round(q), rRound = Math.round(r), sRound = Math.round(-q - r);
+    let qDiff = Math.abs(qRound - q), rDiff = Math.abs(rRound - r), sDiff = Math.abs(sRound + q + r);
+
+    if (qDiff > rDiff && qDiff > sDiff) { q = -(rRound + sRound); r = rRound; }
+    else if (rDiff > sDiff)              { q = qRound; r = -(qRound + sRound); }
+    else                                 { q = qRound; r = rRound; }
+
+    x = Math.sqrt(3) * (q * SegmentLength) + Math.sqrt(3)/2 * (r * SegmentLength);
+    y = 3/2 * (r * SegmentLength);
+    return [x, y];
+  }
+  /*]]>*/
+
+    </script>
+  </svg>
+</div>
+
+
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="#top">Irving Omar Albis</a>
+      <a class="navbar-brand fw-bold" href="#top">Portafolio </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
               aria-controls="nav" aria-expanded="false" aria-label="Menú">
         <span class="navbar-toggler-icon"></span>
@@ -51,9 +149,9 @@
   <header id="top" class="py-5 text-center hero-section">
     <div class="container py-5">
       <h1 class="display-5 fw-800 text-accent mb-2">IRVING OMAR ALBIS</h1>
-      <p class="lead mb-4">Full-Stack (Java / Spring Boot) · Enfoque UX · Scrum Master</p>
+      <p class="lead mb-4">(JAVA Developer Full Stack) · Enfoque UX · Scrum Master</p>
       <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-accent btn-lg" href="assets/cv/CV_IrvingOmarAlbis.pdf" download>
+        <a class="btn btn-accent btn-lg" href="./assets/IRVING OMAR ALBIS CHICA CV Actualizado 4ta V.pdf" download>
           <i class="bi bi-download me-1"></i> Descargar CV
         </a>
         <a class="btn btn-outline-accent btn-lg" href="https://www.linkedin.com/in/irvingomar-tech/" target="_blank" rel="noopener">
@@ -73,13 +171,13 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-7">
           <p class="mb-3">
-            Me apasiona la tecnología porque resuelve problemas reales. Hoy me desempeño como
-            <strong>desarrollador Full-Stack con Java y Spring Boot</strong> y <strong>Scrum Master</strong> en un
-            proyecto de e-commerce. Disfruto conectar backend sólido con interfaces claras y accesibles.
+            Me apasiona la tecnología ya que puedo conectar con el presente y el futuro. Hoy me desempeño como
+            <strong>desarrollador Full-Stack con Java </strong> y <strong>Scrum Master</strong>
+            en un proyecto de e-commerce. Disfruto programar proyectos que puedan dar soluciones claras y accesibles.
           </p>
           <p class="mb-3">
             En lo humano, destaco por <strong>comunicación</strong>, <strong>liderazgo orientado al servicio</strong> y
-            <strong>adaptabilidad</strong> bajo presión. Me gusta aprender rápido, iterar con feedback y sostener un ritmo de entrega sano.
+            <strong>adaptabilidad</strong> bajo presión. Aprendo rápido, itero con feedback y mantengo un ritmo de entrega sano.
           </p>
           <p class="mb-0">
             <em>Quiero mantenerme a la vanguardia y crecer —en equipo o en proyectos personales— creando soluciones e
@@ -87,7 +185,7 @@
           </p>
         </div>
         <div class="col-lg-5 text-center">
-          <img src="assets/img/mi-foto.jpg" class="img-fluid rounded-3 shadow-lg about-photo"
+          <img src="assets/img/FotoOmar.PNG" class="img-fluid rounded-3 shadow-lg about-photo"
                alt="Foto profesional de Irving Omar Albis" loading="lazy">
         </div>
       </div>
@@ -102,15 +200,15 @@
         <div class="col-md-4">
           <div class="card h-100 card-neo">
             <div class="card-body">
-              <h3 class="h5 mb-2">SK01 // Comunicación</h3>
-              <p class="mb-0">Clarifico objetivos, recojo necesidades y cierro acuerdos. Practico feedback accionable y documentación breve que desbloquea al equipo.</p>
+              <h3 class="h5 mb-2"> Comunicación</h3>
+              <p class="mb-0">Clarifico objetivos, recojo necesidades y cierro acuerdos. Feedback accionable y documentación breve que desbloquea al equipo.</p>
             </div>
           </div>
         </div>
         <div class="col-md-4">
           <div class="card h-100 card-neo">
             <div class="card-body">
-              <h3 class="h5 mb-2">SK02 // Liderazgo</h3>
+              <h3 class="h5 mb-2">Liderazgo</h3>
               <p class="mb-0">Facilitación con <strong>Scrum</strong>: prioridades visibles, cadencia de entrega, coordinación entre roles y reducción de bloqueos sin perder calidad.</p>
             </div>
           </div>
@@ -118,8 +216,8 @@
         <div class="col-md-4">
           <div class="card h-100 card-neo">
             <div class="card-body">
-              <h3 class="h5 mb-2">SK03 // Adaptabilidad</h3>
-              <p class="mb-0">Aprendizaje rápido de herramientas y entornos. Mantengo la eficiencia mientras incorporo nuevas prácticas y asumo retos fuera de la zona cómoda.</p>
+              <h3 class="h5 mb-2">SK03 Adaptabilidad</h3>
+              <p class="mb-0">Aprendo herramientas y entornos rápido. Mantengo la eficiencia mientras incorporo nuevas prácticas y asumo retos fuera de la zona cómoda.</p>
             </div>
           </div>
         </div>
@@ -136,7 +234,7 @@
       <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 g-3">
         <!-- Spring Boot -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="72" title="≈72%">
+          <div class="card tech-card h-100 p-3" title="≈72%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-spring-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="Spring Boot">Spring Boot</span>
@@ -146,7 +244,7 @@
         </div>
         <!-- Java -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="80" title="≈80%">
+          <div class="card tech-card h-100 p-3" title="≈80%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-java-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="Java">Java</span>
@@ -156,7 +254,7 @@
         </div>
         <!-- HTML5 -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="85" title="≈85%">
+          <div class="card tech-card h-100 p-3" title="≈85%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-html5-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="HTML5">HTML5</span>
@@ -166,7 +264,7 @@
         </div>
         <!-- CSS3 -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="75" title="≈75%">
+          <div class="card tech-card h-100 p-3" title="≈75%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-css3-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="CSS3">CSS3</span>
@@ -176,7 +274,7 @@
         </div>
         <!-- JavaScript -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="70" title="≈70%">
+          <div class="card tech-card h-100 p-3" title="≈70%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-javascript-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="JavaScript">JavaScript</span>
@@ -186,7 +284,7 @@
         </div>
         <!-- Bootstrap -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="80" title="≈80%">
+          <div class="card tech-card h-100 p-3" title="≈80%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-bootstrap-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="Bootstrap">Bootstrap</span>
@@ -196,7 +294,7 @@
         </div>
         <!-- MySQL -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="65" title="≈65%">
+          <div class="card tech-card h-100 p-3" title="≈65%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-mysql-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="MySQL">MySQL</span>
@@ -206,7 +304,7 @@
         </div>
         <!-- Git -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="75" title="≈75%">
+          <div class="card tech-card h-100 p-3" title="≈75%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-git-plain colored dev-icon-lg"></i>
               <span class="tech-label" data-text="Git">Git</span>
@@ -216,7 +314,7 @@
         </div>
         <!-- GitHub -->
         <div class="col">
-          <div class="card tech-card h-100 p-3" data-level="70" title="≈70%">
+          <div class="card tech-card h-100 p-3" title="≈70%">
             <div class="d-flex align-items-center gap-2">
               <i class="devicon-github-original dev-icon-lg"></i>
               <span class="tech-label" data-text="GitHub">GitHub</span>
@@ -226,7 +324,6 @@
         </div>
       </div>
 
-      <small class="d-block mt-2 opacity-50">* Ajusta los porcentajes según te sientas cómodo.</small>
     </div>
   </section>
 
@@ -248,8 +345,8 @@
                 <span>Java</span><span>Spring Boot</span><span>HTML</span><span>CSS</span><span>Bootstrap 5</span><span>Git</span>
               </div>
               <p class="mb-2"><strong>Rol:</strong> Scrum Master & Front</p>
-              <p class="mb-2"><strong>Retos:</strong> navegación responsiva consistente, estructura de vistas modulares, preparación para endpoints de carrito/pedido.</p>
-              <p class="mb-3"><strong>Detalles de creación:</strong> navbar Bootstrap, grilla de páginas, tokens de color, componentes reutilizables y estilos propios sobrios para mantener performance.</p>
+              <p class="mb-2"><strong>Retos:</strong> navegación responsiva consistente, vistas modulares, preparación para endpoints de carrito/pedido.</p>
+              <p class="mb-3"><strong>Detalles de creación:</strong> navbar Bootstrap, grid de páginas, tokens de color y componentes reutilizables.</p>
               <p class="mb-0 links">
                 <a href="https://github.com/Arukado69/Proyecto-Integrador.git" target="_blank" rel="noopener">Repositorio</a>
                 <span class="ms-2 opacity-50">Demo: próximamente</span>
@@ -271,7 +368,7 @@
               <div class="tags mb-2"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
               <p class="mb-2"><strong>Rol:</strong> Front & UI</p>
               <p class="mb-2"><strong>Retos:</strong> estética retro legible, rendimiento y micro-interacciones.</p>
-              <p class="mb-3"><strong>Detalles de creación:</strong> semántica HTML, imágenes lazy, grilla flexible y efectos sutiles en tarjetas.</p>
+              <p class="mb-3"><strong>Detalles de creación:</strong> semántica HTML, imágenes lazy, grilla flexible y efectos sutiles.</p>
               <p class="mb-0 links">
                 <a href="https://github.com/Arukado69/ChronoLog.git" target="_blank" rel="noopener">Repositorio</a>
                 <a class="ms-2" href="https://arukado69.github.io/ChronoLog/" target="_blank" rel="noopener">Demo</a>
@@ -292,39 +389,40 @@
         <div class="col">
           <div class="card h-100 card-neo">
             <div class="ratio ratio-16x9">
-              <img src="assets/certs/generation_java_fullstack.png" class="object-fit-cover rounded-top"
+              <img src="assets/img/GenerationMexicopng.png" class="object-fit-cover rounded-top"
                    alt="Generation México - Java Full-Stack">
             </div>
             <div class="card-body">
               <h3 class="h6 mb-1">Generation México — Java Full-Stack</h3>
-              <small class="opacity-75">Scrum Master del proyecto integrador</small>
+              <small class="opacity-75">Curso enfocado a ser JAVA Full Stack Developer  
+                Actualmente - Scrum Master del proyecto integrador</small>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card h-100 card-neo">
             <div class="ratio ratio-16x9">
-              <img src="assets/certs/bigschool_cert.png" class="object-fit-cover rounded-top" alt="BIG School">
+              <img src="assets/img/Certificado IA.PNG" class="object-fit-cover rounded-top" alt="BIG School">
             </div>
             <div class="card-body">
-              <h3 class="h6 mb-1">BIG School — Certificación</h3>
-              <small class="opacity-75">Título del curso</small>
+              <h3 class="h6 mb-1">BIG School — Trabajar con Flujos de Trabajo con IA</h3>
+              <small class="opacity-75">Aprendi a implementar diversas IA para crear flujos de trabajo </small>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card h-100 card-neo">
             <div class="ratio ratio-16x9">
-              <img src="assets/certs/coursera_cert.png" class="object-fit-cover rounded-top" alt="Coursera">
+              <img src="assets/img/CERTIFICADO DESARROLLO CON IA.jpg" class="object-fit-cover rounded-top" alt="Coursera">
             </div>
             <div class="card-body">
-              <h3 class="h6 mb-1">Coursera — Certificado</h3>
-              <small class="opacity-75">Título del curso</small>
+              <h3 class="h6 mb-1">BIG SCHOOL — Desarrollo de IA</h3>
+              <small class="opacity-75">Aprendi a trabajar con diferentes IA</small>
             </div>
           </div>
         </div>
       </div>
-      <small class="d-block mt-2 opacity-50">* Cambia nombres de archivo/texto por tus certificados reales.</small>
+      
     </div>
   </section>
 
@@ -400,9 +498,8 @@
 
   <!-- Bootstrap + JS propio -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-          crossorigin="anonymous"></script>
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
   <script>document.body.classList.remove('no-js');</script>
-  <script src="assets/js/main.js?v=hexdance-1"></script>
+  <script src="assets/js/main.js?v=hexdance-2"></script>
 </body>
 </html>
