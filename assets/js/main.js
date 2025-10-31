@@ -1,4 +1,4 @@
-// === Animación suave al entrar en viewport (contenido visible por defecto) ===
+// Entradas suaves (contenido visible por defecto)
 document.addEventListener('DOMContentLoaded', () => {
   const reveal = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
@@ -6,12 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animate'); });
     }, { threshold: 0.18 });
     reveal.forEach(s => io.observe(s));
-  } else {
-    // Fallback: no hace falta, ya es visible por defecto
   }
 });
 
-// === Botón “volver arriba” ===
+// Botón “volver arriba”
 (() => {
   const btn = document.getElementById('btn-top');
   if (!btn) return;
@@ -25,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 })();
 
-// === Formulario (mailto) ===
+// Formulario (mailto)
 (() => {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -45,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 
-// === Copiar correo al portapapeles ===
+// Copiar correo
 (() => {
   const btn = document.getElementById('copy-email');
   if(!btn) return;

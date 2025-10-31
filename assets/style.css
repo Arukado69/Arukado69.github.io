@@ -1,131 +1,296 @@
-/* ====== Variables y base ====== */
+/* ===============================
+   Portafolio — Estilos base
+   Tema: fondo negro + HexDance
+   =============================== */
+
+/* --------- Variables --------- */
 :root{
-  --bg:#000;                /* fondo negro para resaltar el SVG */
-  --text:#e6f7ff;
-  --muted:#b9e6ff;
-  --card:#0c0f12;
-  --line:#1b2530;
-  --accent:#24c8ff;         /* cian */
-  --accent-ghost: rgba(36,200,255,.08);
+  --bg: #000000;
+  --text: #eaf6ff;           /* texto principal (alto contraste) */
+  --muted: #cfeeff;          /* texto secundario */
+  --card: #11161c;           /* fondo de tarjetas */
+  --line: #253244;           /* bordes */
+  --accent: #24c8ff;         /* cian */
+  --accent-ghost: rgba(36,200,255,.12);
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
+/* --------- Reset mínimo --------- */
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
 body{
-  margin:0; font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  color:var(--text); background:var(--bg);
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+img{ max-width: 100%; display: block; }
+
+/* ===============================
+   Capas de fondo
+   =============================== */
+
+/* Capa base negra */
+.bg-base{
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 0;
 }
 
-/* ====== Fondo HexDance ====== */
-.bg-base{ position:fixed; inset:0; background:#000; z-index:0 }
-.hexdance-bg{ position:fixed; inset:0; z-index:1; overflow:hidden; pointer-events:none }
-.hexdance-bg object{ width:100%; height:100%; opacity:.22; mix-blend-mode:screen; filter:drop-shadow(0 0 10px rgba(36,200,255,.4)) }
+/* Capa HexDance: usa el SVG como background (fallback) y como <object> escalado */
+.hexdance-bg{
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  /* Fallback estático por si no renderiza el <object> */
+  .hexdance-bg{
+  background: url('assets/img/hex_dance.svg') center/cover no-repeat fixed;
+}
+}
 
-/* ====== Navbar / hero ====== */
-.navbar{ backdrop-filter: blur(6px) }
-.hero-section{ padding-top:6.5rem } /* espacio por navbar fija */
-.text-accent{ color: var(--muted) }
+/* El <object> se expande más allá del viewport (algunos SVG vienen pequeños) */
+.hexdance-bg object{
+  width: 130vw;
+  height: 130vh;
+  transform: translate(-15vw, -15vh) scale(1.18);
+  transform-origin: center;
+  opacity: .25;                   /* hazlo más/menos visible a gusto */
+  /* Si ves que no aparece, comenta esta línea: */
+  mix-blend-mode: screen;         /* fusiona brillos con fondo negro */
+  filter: drop-shadow(0 0 10px rgba(36,200,255,.4));
+}
+@media (min-width: 992px){
+  .hexdance-bg object{
+    width: 115vw;
+    height: 115vh;
+    transform: translate(-7.5vw, -7.5vh) scale(1.08);
+  }
+}
 
-/* ====== Secciones ====== */
-.section{ padding:4.5rem 0 }
+/* Sutil foco radial en la parte superior del hero para evitar “bloque negro vacío” */
+.hero-section{
+  padding-top: 7rem;              /* navbar fija */
+  padding-bottom: 3.5rem;
+  min-height: 42vh;
+  background:
+    radial-gradient(1200px 500px at 50% 10%, rgba(36,200,255,.10), transparent 60%);
+}
+.hero-section h1,
+.hero-section .lead{
+  color: var(--text);
+  opacity: .96;
+}
+
+/* ===============================
+   Layout de secciones
+   =============================== */
+.section{ padding: 4.5rem 0; }
+
 .section-title{
-  margin:0 0 1rem; color:var(--accent);
-  border-left:4px solid var(--accent); padding-left:.6rem;
+  margin: 0 0 1rem;
+  color: var(--accent);
+  border-left: 4px solid var(--accent);
+  padding-left: .6rem;
 }
 
-/* Visibilidad por defecto (sin JS sigue visible) */
-.reveal{ /* visible por defecto */ }
-.no-js .reveal{ /* también visible sin JS */ }
+/* Animación sutil al entrar (el contenido es visible aun sin JS) */
+.reveal.animate{ animation: fadeUp .6s ease-out both; }
+@keyframes fadeUp{
+  from{ opacity:0; transform: translateY(14px); }
+  to{   opacity:1; transform: none; }
+}
 
-/* Animación suave cuando el JS añade .animate */
-.reveal.animate{ animation:fadeUp .6s ease-out both }
-@keyframes fadeUp{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+/* ===============================
+   Navbar y utilidades
+   =============================== */
+.navbar{ backdrop-filter: blur(6px); }
+.text-accent{ color: var(--muted); }
+.fw-800{ font-weight: 800; }
 
-/* ====== Cards / estética sobria ====== */
+/* ===============================
+   Tarjetas y contenido
+   =============================== */
+.card,
+.card p,
+.card h3,
+.card small{
+  color: var(--text);
+}
+
 .card-neo{
-  background:linear-gradient(180deg, rgba(12,15,18,.92), rgba(8,10,12,.94));
-  border:1px solid var(--line);
-  box-shadow:0 10px 28px rgba(0,0,0,.35);
+  background: linear-gradient(180deg, rgba(17,22,28,.95), rgba(12,15,19,.96));
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 28px rgba(0,0,0,.35);
 }
-.project-card{ border:1px solid var(--line); background:rgba(12,15,18,.92) }
-.project-cover{ height:100%; object-fit:cover; border-right:1px solid var(--line) }
-.tags{ display:flex; flex-wrap:wrap; gap:.4rem }
+
+.project-card{
+  border: 1px solid var(--line);
+  background: rgba(17,22,28,.96);
+}
+
+.project-cover{
+  height: 100%;
+  object-fit: cover;
+  border-right: 1px solid var(--line);
+}
+
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
 .tags span{
-  font-size:.8rem; padding:.15rem .5rem; border:1px solid var(--line); color:var(--muted);
-  background:var(--accent-ghost); border-radius:999px;
+  font-size: .8rem;
+  padding: .15rem .5rem;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: var(--accent-ghost);
+  border-radius: 999px;
 }
-.links a{ color:var(--accent); text-decoration:none; margin-right:.8rem; border-bottom:1px dashed transparent }
-.links a:hover{ border-bottom-color:var(--accent) }
-.about-photo{ border:1px solid var(--line) }
+.links a{
+  color: var(--accent);
+  text-decoration: none;
+  margin-right: .8rem;
+  border-bottom: 1px dashed transparent;
+}
+.links a:hover{ border-bottom-color: var(--accent); }
 
-/* ====== Tecnologías ====== */
-.dev-icon-lg{ font-size:1.9rem }
+.about-photo{ border: 1px solid var(--line); border-radius: .6rem; }
+
+/* ===============================
+   Tecnologías
+   =============================== */
+.dev-icon-lg{ font-size: 1.9rem; }
+
 .tech-card{
-  background:rgba(12,15,18,.92);
-  border:1px solid var(--line);
-  transition:transform .15s ease, box-shadow .15s ease;
+  background: rgba(17,22,28,.96);
+  border: 1px solid var(--line);
+  transition: transform .15s ease, box-shadow .15s ease;
 }
-.tech-card:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(0,0,0,.45) }
+.tech-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.45);
+}
 
-/* Glitch de etiqueta (CSS puro) */
+/* Efecto “glitch” discreto en el label */
 .tech-label{
-  position:relative; display:inline-block; letter-spacing:.4px;
-  text-shadow:0 0 4px rgba(36,200,255,.35);
+  position: relative;
+  display: inline-block;
+  letter-spacing: .4px;
+  color: var(--text);
+  text-shadow: 0 0 5px rgba(36,200,255,.45);
 }
-.tech-label::before,.tech-label::after{
-  content:attr(data-text); position:absolute; left:0; top:0; width:100%; pointer-events:none; opacity:0;
+.tech-label::before,
+.tech-label::after{
+  content: attr(data-text);
+  position: absolute;
+  left: 0; top: 0; width: 100%;
+  pointer-events: none; opacity: 0;
 }
 .tech-card:hover .tech-label::before{
-  opacity:1; transform:translateX(2px); color:#39f; mix-blend-mode:screen; animation:gl1 .2s steps(2) infinite;
+  opacity: 1; transform: translateX(2px);
+  color: #39f; mix-blend-mode: screen;
+  animation: gl1 .2s steps(2) infinite;
 }
 .tech-card:hover .tech-label::after{
-  opacity:1; transform:translateX(-2px); color:#0ff; mix-blend-mode:screen; animation:gl2 .25s steps(2) infinite;
+  opacity: 1; transform: translateX(-2px);
+  color: #0ff; mix-blend-mode: screen;
+  animation: gl2 .25s steps(2) infinite;
 }
-@keyframes gl1{50%{transform:translateX(-1px)}}
-@keyframes gl2{50%{transform:translateX(1px)}}
+@keyframes gl1{ 50%{ transform: translateX(-1px); } }
+@keyframes gl2{ 50%{ transform: translateX(1px); } }
 
-/* Barras Bootstrap override */
+/* Barras de nivel */
 .progress{
-  background:rgba(255,255,255,.06); border:1px solid var(--line);
-  height:8px; border-radius:999px; overflow:hidden;
+  background: rgba(255,255,255,.14);
+  border: 1px solid var(--line);
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
 }
 .progress-bar{
-  background:linear-gradient(90deg, #25b6ff, #6be1ff);
-  box-shadow:0 0 12px rgba(36,200,255,.35);
+  background: linear-gradient(90deg, #25b6ff, #6be1ff);
+  box-shadow: 0 0 16px rgba(36,200,255,.45);
 }
 
-/* ====== Formulario ====== */
+/* ===============================
+   Formulario
+   =============================== */
 .form-control{
-  background:rgba(12,15,18,.85); border:1px solid var(--line); color:var(--text);
+  background: rgba(17,22,28,.90);
+  border: 1px solid var(--line);
+  color: var(--text);
 }
+.form-control::placeholder{ color: #9ec6d9; }
 .form-control:focus{
-  background:rgba(12,15,18,.95); color:var(--text);
-  border-color:var(--accent); box-shadow:0 0 0 0.25rem rgba(36,200,255,.15);
+  background: rgba(17,22,28,.98);
+  color: var(--text);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 .25rem rgba(36,200,255,.15);
 }
 
-/* ====== Botones “accent” ====== */
+/* ===============================
+   Botones
+   =============================== */
 .btn-accent{
-  background:var(--accent); color:#00212c; border:1px solid transparent; font-weight:700;
+  background: var(--accent);
+  color: #00212c;
+  border: 1px solid transparent;
+  font-weight: 700;
 }
-.btn-accent:hover{ filter:brightness(1.06) }
+.btn-accent:hover{ filter: brightness(1.06); }
+
 .btn-outline-accent{
-  color:var(--muted); background:var(--accent-ghost); border:1px solid var(--line);
+  color: var(--text);
+  background: var(--accent-ghost);
+  border: 1px solid var(--line);
 }
-.btn-outline-accent:hover{ border-color:var(--accent); color:var(--text) }
+.btn-outline-accent:hover{
+  border-color: var(--accent);
+  color: var(--text);
+}
 
-/* ====== Footer ====== */
-footer{ background:transparent }
+/* ===============================
+   Footer
+   =============================== */
+footer{ background: transparent; }
 
-/* ====== Botón volver arriba ====== */
+/* ===============================
+   Botón “Volver arriba”
+   =============================== */
 #btn-top{
-  position:fixed; right:18px; bottom:18px; z-index:5;
-  width:42px; height:42px; border-radius:10px; border:1px solid var(--line);
-  background:rgba(12,15,18,.92); color:var(--muted); cursor:pointer;
-  box-shadow:0 6px 14px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:.2s;
+  position: fixed;
+  right: 18px; bottom: 18px;
+  z-index: 5;
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(17,22,28,.95);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0,0,0,.35);
+  opacity: 0; pointer-events: none;
+  transition: .2s;
 }
-#btn-top.show{ opacity:1; pointer-events:auto }
-#btn-top:hover{ color:var(--accent); border-color:var(--accent) }
+#btn-top.show{ opacity: 1; pointer-events: auto; }
+#btn-top:hover{ color: var(--accent); border-color: var(--accent); }
 
-/* Utilidades */
-.object-fit-cover{ object-fit:cover }
-.fw-800{ font-weight:800 }
+/* ===============================
+   Utilidades
+   =============================== */
+.object-fit-cover{ object-fit: cover; }
+
+/* --- CAPAS: fondo abajo, contenido arriba --- */
+.bg-base{ z-index: 0 !important; }
+.hexdance-bg{ z-index: 1 !important; }
+
+/* Todo tu contenido por encima del fondo */
+nav, header, section, footer, #btn-top { 
+  position: relative; 
+  z-index: 2; 
+}
+
+/* Si notas que el blend aclara el texto, puedes apagarlo así: */
+.hexdance-bg svg { mix-blend-mode: normal !important; }   /* o quita la línea si no está */
